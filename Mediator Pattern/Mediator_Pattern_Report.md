@@ -29,6 +29,7 @@
 8. [Pros, Cons, and Design Trade-offs](#8-pros-cons-and-design-trade-offs)
 9. [Real-World Applications & Industry Use Cases](#9-real-world-applications--industry-use-cases)
 10. [Interactive Self-Assessment Quiz](#10-interactive-self-assessment-quiz)
+11. [References](#11-references)
 
 ---
 
@@ -572,3 +573,10 @@ D. It forces all colleague objects to become stateless.
 
 ## Summary & Group Conclusion
 The **Mediator Design Pattern** serves as an indispensable tool for decoupling interactions across complex sub-systems. While it introduces the risk of creating a "God Object," the pattern excels at mitigating unmanageable O(N^2) component dependencies by centralizing routing logic into an O(N) model. Whether for UI dialog orchestration or backend MediatR requests, it ensures a modular and maintainable architectural baseline.
+
+---
+
+## 11. References
+* [Mediator - Refactoring.Guru](https://refactoring.guru/design-patterns/mediator)
+* [Tổng quan về Mediator Design Pattern - Viblo](https://viblo.asia/p/mediator-design-pattern-tro-thu-dac-luc-cua-developers-m68Z0jVj5kG)
+* [Mediator Design Pattern - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/mediator-design-pattern/)
