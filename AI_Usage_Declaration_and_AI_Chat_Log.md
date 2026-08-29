@@ -152,8 +152,8 @@ Per the team's workflow plan, task responsibilities and AI utilization for the M
 
 | Team Member | Student ID | Assigned Tasks | Permitted AI Assistance Scope | Human Verification & Ownership |
 | :--- | :--- | :--- | :--- | :--- |
-| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 4, 5, 6, 7 (General & Domain Design, Class Diagrams, Modern C++ Implementation) | - Structuring class relationships inside Mediator UML diagrams.<br>- Scaffolding standard C++ Mediator and Colleague polymorphic linkages.<br>- Refining structural descriptions of tower notifications. | - Designed the airspace subscription model and coordination flow in `AirportControlTower`.<br>- Hand-wrote and compiled the final decoupled C++ implementation (`MediatorPattern.cpp`).<br>- Ensured appropriate virtual destructor handling. |
-| **Trần Thành Lợi** | `25125059` | Tasks 1, 2, 3, 8, 9, 10 (ATC Context, Naive Code, Flaws Analysis, Pros/Cons, Applications, Quiz) | - Drafting the quadratic $O(N^2)$ direct-mesh C++ flight comparison boilerplate.<br>- Formulating quiz questions regarding "God Object" and temporal coupling risks. | - Formulated the real-world terminal airspace collision and coordination problem context.<br>- Analyzed coupling flaws inside the naive flight control system.<br>- Verified and structured the quiz questions and answers. |
+| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 1-10 (All) | - Structuring class relationships inside Mediator UML diagrams.<br>- Scaffolding standard C++ Mediator and Colleague polymorphic linkages.<br>- Refining structural descriptions of tower notifications.<br>- Drafting the quadratic $O(N^2)$ direct-mesh C++ flight comparison boilerplate.<br>- Formulating quiz questions regarding "God Object" and temporal coupling risks. | - Designed the airspace subscription model and coordination flow in `AirportControlTower`.<br>- Hand-wrote and compiled the final decoupled C++ implementation (`MediatorPattern.cpp`).<br>- Ensured appropriate virtual destructor handling.<br>- Formulated the real-world terminal airspace collision and coordination problem context.<br>- Analyzed coupling flaws inside the naive flight control system.<br>- Verified and structured the quiz questions and answers. |
+| **Trần Thành Lợi** | `25125059` | Quality Assurance | - Grammar, phrasing, and formatting checks for the final report submission. | - Conducted full code review and verified runtime execution of C++ source files.<br>- Reviewed UML design correctness, evaluated trade-offs, and verified the quiz accuracy. |
 
 ---
 
@@ -164,7 +164,6 @@ Below is the structured transcript of key prompts and responses exchanged with t
 ---
 
 #### Phase 1: Problem Formulation & Naive ATC Solution (Tasks 1, 2, 3)
-*Assigned to: Trần Thành Lợi (`25125059`)*
 
 ##### **User Prompt 1.1 (ATC Naive Mesh C++):**
 > *"Help me write a naive C++ solution representing an Air Traffic Control system. Multiple flight aircraft need to request landing clearance. Make them communicate directly with all other aircraft to simulate an O(N^2) connection mesh. Let each plane have a vector of other aircraft pointers."*
@@ -179,7 +178,6 @@ Generated a class `Aircraft` having `std::vector<Aircraft*> otherAircrafts`. Whe
 ---
 
 #### Phase 2: Pattern Architecture & UML Diagrams (Tasks 4, 5, 6)
-*Assigned to: Huỳnh Trần Gia Hân (`25125042`)*
 
 ##### **User Prompt 2.1 (Mermaid Diagram for ATC Mediator):**
 > *"Generate a Mermaid classDiagram mapping the Mediator pattern onto an Air Traffic Control context. The classes should include AirTrafficControlTower as the Mediator interface, AirportControlTower as the concrete mediator, Airplane as the Colleague base, and CommercialAirplane as a concrete colleague. Show references and coordinates links."*
@@ -219,7 +217,6 @@ classDiagram
 ---
 
 #### Phase 3: Decoupled C++ Implementation (Task 7)
-*Assigned to: Huỳnh Trần Gia Hân (`25125042`)*  
 
 ##### **User Prompt 3.1 (Modern C++ Mediator Pattern Implementation):**
 > *"Translate the Air Traffic Control Mediator design into clean modern C++ code. The central control tower should act as the mediator. Airplanes should register with the tower, and when one requests landing/takeoff, the tower must issue instructions (e.g. hold position, maintain altitude) to all other airplanes."*
@@ -235,7 +232,7 @@ Generated a C++ implementation with abstract `AirTrafficControlTower`, abstract 
 ---
 
 #### Phase 4: Applications, Trade-offs & Quiz Verification (Tasks 8, 9, 10)
-*Assigned to: Trần Thành Lợi (`25125059`)*
+
 
 ##### **User Prompt 4.1 (Real-world applications and Quiz):**
 > *"List real-world applications of Mediator pattern in web, mobile, and distributed systems. Generate a 6-question quiz about temporal coupling, SRP/OCP, and God Object risks for Mediator."*

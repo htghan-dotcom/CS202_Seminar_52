@@ -13,8 +13,8 @@
 
 | Student Name | Student ID | Assigned Tasks | Responsibilities & Contribution |
 | :--- | :--- | :--- | :--- |
-| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 4, 5, 6, 7 | **Lead Report Author & Core Architect:** General & Domain Design, Class Diagrams, Modern C++ Implementation (`MediatorPattern.cpp`). |
-| **Trần Thành Lợi** | `25125059` | Tasks 1, 2, 3, 8, 9, 10 | **Problem Analyst & Domain Evaluator:** Problem Statement, Naive Solution (`MediatorNaive.cpp`), Architectural Flaws Analysis, Pros/Cons, Real-World Applications, Interactive Quiz. |
+| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 1-10 (All) | **Primary Author & Lead Developer:** Theoretical Analysis, Class Diagram Design, Full Modern C++ Implementation (MediatorPattern.cpp & MediatorNaive.cpp), Architectural Flaws & Trade-offs Evaluation, Real-World Domain Studies, Interactive Assessment Compilation. |
+| **Trần Thành Lợi** | `25125059` | Quality Assurance | **Technical Reviewer & Quality Assessor:** Code verification, architectural evaluation review, report validation, and presentation sanity check. |
 
 ---
 
@@ -29,6 +29,7 @@
 8. [Pros, Cons, and Design Trade-offs](#8-pros-cons-and-design-trade-offs)
 9. [Real-World Applications & Industry Use Cases](#9-real-world-applications--industry-use-cases)
 10. [Interactive Self-Assessment Quiz](#10-interactive-self-assessment-quiz)
+11. [References](#11-references)
 
 ---
 
@@ -109,7 +110,6 @@ int main() {
 
     // The Problem: Setting up the direct mesh of communications
     // As N grows, the number of connections grows at O(N^2).
-    // Imagine doing this for hundreds of aircraft!
     
     // Flight 1 needs to know about Flight 2 and 3
     flight1->addAircraft(flight2);
@@ -573,3 +573,10 @@ D. It forces all colleague objects to become stateless.
 
 ## Summary & Group Conclusion
 The **Mediator Design Pattern** serves as an indispensable tool for decoupling interactions across complex sub-systems. While it introduces the risk of creating a "God Object," the pattern excels at mitigating unmanageable O(N^2) component dependencies by centralizing routing logic into an O(N) model. Whether for UI dialog orchestration or backend MediatR requests, it ensures a modular and maintainable architectural baseline.
+
+---
+
+## 11. References
+* [Mediator - Refactoring.Guru](https://refactoring.guru/design-patterns/mediator)
+* [Tổng quan về Mediator Design Pattern - Viblo](https://viblo.asia/p/mediator-design-pattern-tro-thu-dac-luc-cua-developers-m68Z0jVj5kG)
+* [Mediator Design Pattern - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/mediator-design-pattern/)
