@@ -1,0 +1,31 @@
+classDiagram
+    class Mediator {
+        <<interface>>
+        +notify(sender: Colleague, event: String)
+    }
+    
+    class ConcreteMediator {
+        -colleague1: ConcreteColleague1
+        -colleague2: ConcreteColleague2
+        +notify(sender: Colleague, event: String)
+    }
+    
+    class Colleague {
+        <<interface>>
+        #mediator: Mediator
+    }
+    
+    class ConcreteColleague1 {
+        +operationA()
+    }
+    
+    class ConcreteColleague2 {
+        +operationB()
+    }
+
+    Mediator <|.. ConcreteMediator : Implements
+    Colleague <|.. ConcreteColleague1 : Implements
+    Colleague <|.. ConcreteColleague2 : Implements
+    ConcreteColleague1 --> Mediator : References
+    ConcreteColleague2 --> Mediator : References
+    ConcreteMediator --> Colleague : Coordinates

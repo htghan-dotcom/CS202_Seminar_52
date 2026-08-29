@@ -1,0 +1,31 @@
+classDiagram
+    class AirTrafficControlTower {
+        <<interface>>
+        +requestTakeoff(airplane: Airplane)
+        +requestLanding(airplane: Airplane)
+    }
+    
+    class AirportControlTower {
+        +requestTakeoff(airplane: Airplane)
+        +requestLanding(airplane: Airplane)
+    }
+    
+    class Airplane {
+        <<interface>>
+        +requestTakeoff()
+        +requestLanding()
+        +notifyAirTrafficControl(message: String)
+    }
+    
+    class CommercialAirplane {
+        -mediator: AirTrafficControlTower
+        +CommercialAirplane(mediator: AirTrafficControlTower)
+        +requestTakeoff()
+        +requestLanding()
+        +notifyAirTrafficControl(message: String)
+    }
+
+    AirTrafficControlTower <|.. AirportControlTower : Implements
+    Airplane <|.. CommercialAirplane : Implements
+    CommercialAirplane --> AirTrafficControlTower : References
+    AirportControlTower --> Airplane : Coordinates

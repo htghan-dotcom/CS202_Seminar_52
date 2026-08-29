@@ -14,7 +14,7 @@
 | Student Name | Student ID | Assigned Tasks | Responsibilities & Contribution |
 | :--- | :--- | :--- | :--- |
 | **Trần Thành Lợi** | `25125059` | Tasks 4, 5, 6, 7 | **Lead Report Author & Core Architect:** AST Design, Class Diagrams, Modern C++ Implementation (`main_pattern.cpp`, Header/Source layout), AST Evaluation Logic. |
-| **Huỳnh Trần Gia Hân** | `25125043` | Tasks 1, 2, 3, 8, 9, 10 | **Problem Analyst & Domain Evaluator:** Problem Statement, Naive Solution (`main_naive.cpp`), Architectural Flaws Analysis, Pros/Cons, Real-World Applications, Interactive Quiz. |
+| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 1, 2, 3, 8, 9, 10 | **Problem Analyst & Domain Evaluator:** Problem Statement, Naive Solution (`main_naive.cpp`), Architectural Flaws Analysis, Pros/Cons, Real-World Applications, Interactive Quiz. |
 
 ---
 
