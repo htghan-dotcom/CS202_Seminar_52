@@ -1,0 +1,41 @@
+classDiagram
+    class Context {
+        -std::unordered_map~string, int~ variables
+        +setVariable(string name, int value)
+        +getVariable(string name) int
+    }
+
+    class Expression {
+        <<interface>>
+        +interpret(Context& context)* int
+        +~Expression()
+    }
+
+    class NumberExpression {
+        -int value
+        -std::string varName
+        -bool isVariable
+        +NumberExpression(int val)
+        +NumberExpression(string var)
+        +interpret(Context& context) int
+    }
+
+    class AddExpression {
+        -std::shared_ptr~Expression~ left
+        -std::shared_ptr~Expression~ right
+        +AddExpression(shared_ptr~Expression~ l, shared_ptr~Expression~ r)
+        +interpret(Context& context) int
+    }
+
+    class SubtractExpression {
+        -std::shared_ptr~Expression~ left
+        -std::shared_ptr~Expression~ right
+        +SubtractExpression(shared_ptr~Expression~ l, shared_ptr~Expression~ r)
+        +interpret(Context& context) int
+    }
+
+    Expression <|-- NumberExpression : inherits
+    Expression <|-- AddExpression : inherits
+    Expression <|-- SubtractExpression : inherits
+    AddExpression o-- Expression : left & right children
+    SubtractExpression o-- Expression : left & right children

@@ -13,8 +13,8 @@
 
 | Student Name | Student ID | Assigned Tasks | Responsibilities & Contribution |
 | :--- | :--- | :--- | :--- |
-| **Trần Thành Lợi** | `25125059` | Tasks 4, 5, 6, 7 | **Lead Report Author & Core Architect:** AST Design, Class Diagrams, Modern C++ Implementation (`main_pattern.cpp`, Header/Source layout), AST Evaluation Logic. |
-| **Huỳnh Trần Gia Hân** | `25125042` | Tasks 1, 2, 3, 8, 9, 10 | **Problem Analyst & Domain Evaluator:** Problem Statement, Naive Solution (`main_naive.cpp`), Architectural Flaws Analysis, Pros/Cons, Real-World Applications, Interactive Quiz. |
+| **Trần Thành Lợi** | `25125059` | Tasks 1 - 10 (All Tasks) | **Lead Author, Core Architect & Implementer:** Sole author responsible for all analysis, design, implementation, evaluation, AST design, modern C++ code development, and report writing. |
+| **Huỳnh Trần Gia Hân** | `25125042` | Quality Assurance & Review | **Peer Reviewer & Quality Assurer:** Responsible for reviewing, proofreading, verifying the correctness of the report, validating code implementation, and testing execution. |
 
 ---
 
@@ -29,22 +29,24 @@
 8. [Pros, Cons, and Design Trade-offs](#8-pros-cons-and-design-trade-offs)
 9. [Real-World Applications & Industry Use Cases](#9-real-world-applications--industry-use-cases)
 10. [Interactive Self-Assessment Quiz](#10-interactive-self-assessment-quiz)
+11. [References & Further Reading](#11-references--further-reading)
+
 
 ---
 
 ## 1. Real-World Problem Context
 
-In computer software development, evaluating dynamic, user-defined expressions at runtime is a frequent requirement. Consider a enterprise financial application, a spreadsheet program, or a dynamic rule engine where end-users type string-based mathematical or logical formulas such as:
+In computer software development, evaluating dynamic, user-defined expressions at runtime is a frequent requirement. Consider an enterprise financial application, a spreadsheet program, or a dynamic rule engine where end-users type string-based mathematical or logical formulas such as:
 
-$$	ext{Result} = "3 + 5 - 2"$$
+$$\text{Result} = "3 + 5 - 2"$$
 
 or dynamic expressions involving variable lookups:
 
-$$	ext{Tax} = 	ext{"base\_salary"} + 	ext{"bonus"} - 	ext{"deduction"}$$
+$$\text{Tax} = \text{"base\_salary"} + \text{"bonus"} - \text{"deduction"}$$
 
 Hardcoding these equations into static C++ code using native arithmetic operators (e.g., `int result = 3 + 5 - 2;`) is impossible because the formulas are not known at compile-time—they are provided dynamically by external users, configurations, or network payloads.
 
-To process these dynamic inputs, the software system must parse the input string, interpret the tokens (numbers, variables, operators), respect operator precedence and nested grouping, and compute the final numeric value. 
+To process these dynamic inputs, the software system must parse the input string, interpret the tokens (numbers, variables, operators), respect operator precedence and nested grouping, and compute the final numeric value.
 
 ---
 
@@ -78,8 +80,7 @@ int evaluateNaive(const std::string& expression) {
     for (size_t i = 1; i < tokens.size(); i += 2) {
         std::string op = tokens[i];
         if (i + 1 >= tokens.size()) {
-            std::cerr << "Error: Malformed expression format.
-";
+            std::cerr << "Error: Malformed expression format.\n";
             return result;
         }
         int nextValue = std::stoi(tokens[i + 1]);
@@ -89,8 +90,7 @@ int evaluateNaive(const std::string& expression) {
         } else if (op == "-") {
             result -= nextValue;
         } else {
-            std::cerr << "Error: Unsupported operator '" << op << "'
-";
+            std::cerr << "Error: Unsupported operator '" << op << "'\n";
         }
     }
     
@@ -100,8 +100,7 @@ int evaluateNaive(const std::string& expression) {
 int main() {
     std::string expr1 = "3 + 5 - 2";
     std::cout << "Evaluating '" << expr1 << "' -> Result: " 
-              << evaluateNaive(expr1) << " (Expected: 6)
-";
+              << evaluateNaive(expr1) << " (Expected: 6)\n";
               
     return 0;
 }
@@ -117,7 +116,7 @@ While the naive approach works for trivial left-to-right calculations like `"3 +
    Adding new operators (e.g., multiplication `*`, division `/`, modulo `%`, or exponentiation `^`) requires directly modifying the core loop inside `evaluateNaive()`. The function grows monotonically into a monolithic block of conditionals.
 
 2. **Inability to Handle Operator Precedence:**
-   Sequential evaluation treats `"3 + 5 * 2"` as $(3 + 5) 	imes 2 = 16$, which yields a mathematically incorrect result. Standard arithmetic rules demand that multiplication takes precedence ($3 + (5 	imes 2) = 13$). Adding precedence rules to procedural loops requires complex state tracking or nested regex hacks.
+   Sequential evaluation treats `"3 + 5 * 2"` as $(3 + 5) \times 2 = 16$, which yields a mathematically incorrect result. Standard arithmetic rules demand that multiplication takes precedence ($3 + (5 \times 2) = 13$). Adding precedence rules to procedural loops requires complex state tracking or nested regex hacks.
 
 3. **Inability to Handle Nested Grouping (Parentheses):**
    Evaluating sub-expressions enclosed in parentheses, such as `"(3 + 5) * (10 - 2)"`, requires recursion or stack management. Iterative sequential string parsing becomes extremely fragile, messy, and prone to runtime bugs.
@@ -188,15 +187,17 @@ classDiagram
 To solve our string evaluation problem, we map mathematical grammar into concrete classes:
 
 - **Grammar Rule:**
-  $$	ext{Expression} ::= 	ext{Number} \mid 	ext{Expression} + 	ext{Expression} \mid 	ext{Expression} - 	ext{Expression}$$
+  $$\text{Expression} ::= \text{Number} \mid \text{Expression} + \text{Expression} \mid \text{Expression} - \text{Expression}$$
 
 ### Expression Tree Representation for `"3 + 5 - 2"`
 The string `"3 + 5 - 2"` (interpreted left-associatively as `(3 + 5) - 2`) forms the following AST:
 
 ```text
                SubtractExpression (-)
-                     /                 AddExpression (+)   NumberExpression (2)
-             /       NumberExpression(3)  NumberExpression(5)
+                     /          \
+         AddExpression (+)      NumberExpression (2)
+          /         \
+NumberExpression(3)  NumberExpression(5)
 ```
 
 ### UML Class Diagram for Math Expression Evaluator
@@ -421,13 +422,9 @@ std::shared_ptr<Expression> parseExpression(const std::string& exprStr) {
 }
 
 int main() {
-    std::cout << "====================================================
-";
-    std::cout << " CS202 - Interpreter Pattern Demo (Modern C++)
-";
-    std::cout << "====================================================
-
-";
+    std::cout << "====================================================\n";
+    std::cout << " CS202 - Interpreter Pattern Demo (Modern C++)\n";
+    std::cout << "====================================================\n\n";
 
     Context ctx;
     ctx.setVariable("a", 10);
@@ -437,26 +434,19 @@ int main() {
     std::string str1 = "3 + 5 - 2";
     auto ast1 = parseExpression(str1);
     if (ast1) {
-        std::cout << "[Test 1] Expression: "" << str1 << ""
-";
+        std::cout << "[Test 1] Expression: \"" << str1 << "\"\n";
         std::cout << "         Evaluated Result: " << ast1->interpret(ctx) 
-                  << " (Expected: 6)
-
-";
+                  << " (Expected: 6)\n\n";
     }
 
     // Test Case 2: Expression with variables "a + b - 3"
     std::string str2 = "a + b - 3";
     auto ast2 = parseExpression(str2);
     if (ast2) {
-        std::cout << "[Test 2] Context Variables: a = 10, b = 4
-";
-        std::cout << "         Expression: "" << str2 << ""
-";
+        std::cout << "[Test 2] Context Variables: a = 10, b = 4\n";
+        std::cout << "         Expression: \"" << str2 << "\"\n";
         std::cout << "         Evaluated Result: " << ast2->interpret(ctx) 
-                  << " (Expected: 11)
-
-";
+                  << " (Expected: 11)\n\n";
     }
 
     return 0;
@@ -564,3 +554,20 @@ D. It deletes unused AST nodes automatically.
 
 ## Summary & Group Conclusion
 The **Interpreter Design Pattern** offers an elegant, object-oriented framework for parsing and evaluating domain-specific languages and dynamic expressions. While not intended for high-performance compiler backends of complex languages, its modularity and strict adherence to SOLID principles make it the ideal design choice for rule engines, mathematical formula evaluators, and configuration parsers.
+
+---
+
+## 11. References & Further Reading
+
+1. **Gamma, E., Helm, R., Johnson, R., & Vlissides, J. (1994).**  
+   *Design Patterns: Elements of Reusable Object-Oriented Software.* Addison-Wesley Professional. ISBN: 0-201-63361-2.
+2. **Wikipedia.** *Interpreter Pattern.*  
+   Available online: [https://en.wikipedia.org/wiki/Interpreter_pattern](https://en.wikipedia.org/wiki/Interpreter_pattern)
+3. **SourceMaking.** *Interpreter Design Pattern Tutorial.*  
+   Available online: [https://sourcemaking.com/design_patterns/interpreter](https://sourcemaking.com/design_patterns/interpreter)
+4. **GeeksforGeeks.** *Interpreter Design Pattern in System Design.*  
+   Available online: [https://www.geeksforgeeks.org/system-design/interpreter-design-pattern/](https://www.geeksforgeeks.org/system-design/interpreter-design-pattern/)
+5. **Refactoring.Guru.** *Design Patterns & Software Architecture.*  
+   Available online: [https://refactoring.guru/](https://refactoring.guru/)
+6. **ISO/IEC C++ Standard Committee.** *C++20 Standard Documentation & Smart Pointers Guidelines.*  
+   Available online: [https://en.cppreference.com/w/cpp/memory/shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)

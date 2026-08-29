@@ -1,0 +1,32 @@
+classDiagram
+    class Client {
+        +main()
+    }
+    
+    class Context {
+        -map~string, int~ variableSpace
+        +assign(string var, int value)
+        +lookup(string var) int
+    }
+    
+    class AbstractExpression {
+        <<interface>>
+        +interpret(Context context)* int
+    }
+    
+    class TerminalExpression {
+        -int literalValue
+        +interpret(Context context) int
+    }
+    
+    class NonterminalExpression {
+        -AbstractExpression child1
+        -AbstractExpression child2
+        +interpret(Context context) int
+    }
+    
+    Client --> AbstractExpression : constructs & calls interpret()
+    Client --> Context : creates & populates
+    AbstractExpression <|-- TerminalExpression
+    AbstractExpression <|-- NonterminalExpression
+    NonterminalExpression o-- AbstractExpression : composes (left/right branches)
